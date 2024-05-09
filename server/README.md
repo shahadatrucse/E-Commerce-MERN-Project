@@ -1,7 +1,7 @@
 # E-Commerce MERN Stack Project
 User: shahadatrucse
 Password: 4RgumJdIetWCG8e5
-SMTP: 
+SMTP password:iomm psau pjlm plul 
 
 ## Basic setup
 
