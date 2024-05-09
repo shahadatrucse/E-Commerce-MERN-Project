@@ -139,6 +139,22 @@ const processRegister = async (req, res, next) => {
     
     //create jwt
     const token = createJSONWebToken({name, email, password, phone, address}, jwtActivationKey, '10m');
+
+    // prepare email
+    const emailData = {
+      email,
+      subject: 'Account Activation Email',
+      html: `
+        <h2> Hello ${name} ! <h2>
+        <p> please click here to <a href="${clientURL}/api/users/activate/${token}" target="_blank"> activate your account </a> </p>
+      `
+    }
+
+    // send email with nodemailer
+
+
+
+
     return successResponse(res, {
       statusCode: 200,
       message: "user was created uccessfully",

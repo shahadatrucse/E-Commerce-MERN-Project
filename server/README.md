@@ -27,7 +27,10 @@ SMTP password:iomm psau pjlm plul
 20. DELETE /api/users/:id -> delete a single user by id
 21. Refactoring & reusability, dynamic
 22. DeleteImage Helper
-23. POST /api/users -> create a user
-24. add express validator middleware
-25. add multer middleware for file upload
-26. PUT /api/users/:id -> update a single user by id
+23. POST /api/users/process-register -> process the registration
+24. Create JWT
+25. setup smtp server & prepare email
+26. send email with nodemailer
+27. POST /api/users/verify -> verify + register into database
+28. add express validator middleware
+29. add multer middleware for file upload
