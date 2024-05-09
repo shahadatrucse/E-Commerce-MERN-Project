@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const User = require("../models/userModel");
 const { successResponse } = require('./responseController');
@@ -6,6 +7,8 @@ const mongoose = require('mongoose');
 const { findWithId } = require('../services/findItem');
 const { createJSONWebToken } = require('../helper/jsonwebtoken');
 const { jwtActivationKey } = require('../secret');
+const emailWithNodeMailer = require('../helper/email');
+const {clientURL} = require('../secret');
 
 // read a list of all users
 const getUsers = async (req, res, next) => {
@@ -140,24 +143,32 @@ const processRegister = async (req, res, next) => {
     //create jwt
     const token = createJSONWebToken({name, email, password, phone, address}, jwtActivationKey, '10m');
 
+
     // prepare email
     const emailData = {
       email,
       subject: 'Account Activation Email',
       html: `
         <h2> Hello ${name} ! <h2>
-        <p> please click here to <a href="${clientURL}/api/users/activate/${token}" target="_blank"> activate your account </a> </p>
+        <p> please click here to <a href="${clientURL}/api/users/activate/${token}"  target="_blank"> activate your account </a> </p>
       `
     }
 
     // send email with nodemailer
+    try {
+      emailWithNodeMailer(emailData);
+    }
+    catch (emailError) {
+      next(createError(500, 'Failed to send verification email'));
+      return;
+    }
 
 
 
-
+    console.log("ClientURL: ",clientURL);
     return successResponse(res, {
       statusCode: 200,
-      message: "user was created uccessfully",
+      message: `Please go to your ${email} for completing your registration process`,
       payload: { token },
     });
   } 
@@ -166,4 +177,28 @@ const processRegister = async (req, res, next) => {
   }
 };
 
-module.exports = { getUsers, createUser, getUserById, deleteUserById, processRegister};
+
+// activateUserAccount after verify
+const activateUserAccount = async (req,res,next) => {
+try{
+  const token = req.body.token;
+
+  if(!token) throw createError(404, 'token not found');
+
+  const decoded = jwt.verify(token, jwtActivationKey);
+
+  console.log(decoded);
+
+  await User.create(decoded);
+
+  return successResponse(res, {
+      statusCode: 201,
+      message: 'user was registered successfully',
+    });
+  } 
+  catch (error) { 
+    next(error);
+  }
+};
+
+module.exports = { getUsers, createUser, getUserById, deleteUserById, processRegister, activateUserAccount};
