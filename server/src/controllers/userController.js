@@ -1,4 +1,4 @@
-const createError = require ('http-errors');
+const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const User = require("../models/userModel");
@@ -156,7 +156,7 @@ const processRegister = async (req, res, next) => {
 
     // send email with nodemailer
     try {
-      // emailWithNodeMailer(emailData);
+      //emailWithNodeMailer(emailData);
     }
     catch (emailError) {
       next(createError(500, 'Failed to send verification email'));
@@ -192,7 +192,7 @@ const activateUserAccount = async (req,res,next) => {
       if(userExists){
         throw createError(409, 'User with this email already exits. Please sign in');
       }
-
+      
       console.log(decoded);
       await User.create(decoded);
 
