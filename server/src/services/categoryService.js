@@ -42,4 +42,14 @@ const handleUpdateCategoryService = async (slug, name) => {
     }
 };
 
-module.exports = {handleCreateCategoryService, handleGetCategoriesService, handleGetCategoryService, handleUpdateCategoryService};
+const handleDeleteCategoryService = async (slug) => {
+    return await Category.findOneAndDelete({slug});
+};
+
+module.exports = {
+    handleCreateCategoryService, 
+    handleGetCategoriesService, 
+    handleGetCategoryService, 
+    handleUpdateCategoryService,
+    handleDeleteCategoryService,
+};

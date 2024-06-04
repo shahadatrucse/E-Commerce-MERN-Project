@@ -1,7 +1,13 @@
 const { successResponse } = require("./responseController");
 const slugify = require('slugify');
 const Category = require('../models/categoryModel');
-const {handleCreateCategoryService, handleGetCategoriesService, handleGetCategoryService, handleUpdateCategoryService} = require("../services/categoryService");
+const {
+    handleCreateCategoryService, 
+    handleGetCategoriesService, 
+    handleGetCategoryService, 
+    handleUpdateCategoryService,
+    handleDeleteCategoryService,
+} = require("../services/categoryService");
 const createHttpError = require("http-errors");
 
 const handleCreateCategory = async (req, res, next) => {
@@ -79,4 +85,31 @@ const handleUpdateCategory = async (req, res, next) => {
     }
 };
 
-module.exports = {handleCreateCategory, handleGetCategories, handleGetCategory, handleUpdateCategory};
+const handleDeleteCategory = async (req, res, next) => {
+    try {
+      const { slug } = req.params;
+      
+      const result = await handleDeleteCategoryService (slug);
+
+      if(!result){
+        throw createError(404, 'No category found');
+      }
+
+      return successResponse(res, {
+        statusCode: 200,
+        message: 'category was deleted successfully',
+      });
+
+    } 
+    catch (error) { 
+      next(error);
+    }
+};
+
+module.exports = {
+    handleCreateCategory, 
+    handleGetCategories, 
+    handleGetCategory, 
+    handleUpdateCategory,
+    handleDeleteCategory,
+};

@@ -58,3 +58,9 @@ SMTP password:iomm psau pjlm plul
     GET: api/categories/:slug
 50. Category CRUD - Update Category - PUT: api/categories/:slug
 51. Category CRUD - Delete Catagory - DELETE: api/categories/:slug
+52. Product API - Create Product
+53. Product API - create seed route for testing products
+54. Product API - Create Product
+55. Product API - Read Product
+56. Product API - Update Product
+57. Product API - Delete Product
