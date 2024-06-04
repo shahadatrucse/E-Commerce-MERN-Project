@@ -34,3 +34,27 @@ SMTP password:iomm psau pjlm plul
 27. POST /api/users/verify -> verify + register into database
 28. add express validator middleware
 29. add multer middleware for file upload
+30. refactoring file uploading
+31. should we store image as string or buffer?
+32. PUT /api/users/:id -> update a single user by id authenctication and authorization
+33. POST /api/auth/login -> user login
+34. POST /api/auth/logout -> user logout
+35. Middlewares -> isLoggedIn, isLoggedOut, isAdmin
+36. input validation when signed in and refactoring 
+37. PUT /api/users/ban-user -> ban user
+38. PUT /api/users/unban-user ->unban user
+39. PUT /api/users/update-password -> update the password
+40. POST /api/users/forget-password -> forget the password
+41. PUT /api/users/reset-password -> reset the password
+42. GET /api/auth/refresh -> generate the refresh token
+43. GET /api/auth/protected -> verify the token and give access to other routes
+44. refactoring
+45. moduler code structure
+46. winston logger library
+47. Category Model and Input validation
+48. Category CRUD - Create Category - POST: api/categories
+49. Category CRUD - Read Category
+    GET: api/categories
+    GET: api/categories/:slug
+50. Category CRUD - Update Category - PUT: api/categories/:slug
+51. Category CRUD - Delete Catagory - DELETE: api/categories/:slug
